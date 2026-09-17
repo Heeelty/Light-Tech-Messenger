@@ -217,45 +217,76 @@ if (toggleAuth) {
   });
 }
 
-
 // ============================================
 // LOGIN / REGISTRATION
 // ============================================
 
+async function handleAuth() {
+  clearAuthMessages();
+
+  const email = emailInput?.value.trim() || "";
+  const password = passwordInput?.value || "";
+
+  if (!email) {
+    showAuthError("Введите email.");
+    return;
+  }
+
+  if (!password) {
+    showAuthError("Введите пароль.");
+    return;
+  }
+
+  if (!isLoginMode) {
+    const username = usernameInput?.value.trim() || "";
+
+    if (!username) {
+      showAuthError("Введите имя пользователя.");
+      return;
+    }
+
+    if (username.length < 3) {
+      showAuthError(
+        "Имя пользователя должно содержать минимум 3 символа."
+      );
+      return;
+    }
+
+    await register(username, email, password);
+  } else {
+    await login(email, password);
+  }
+}
+
+
+// Обрабатываем именно нажатие кнопки.
+// Это обходит проблему с браузерной валидацией формы.
+if (authSubmit) {
+  authSubmit.addEventListener("click", async event => {
+    event.preventDefault();
+
+    if (authSubmit.disabled) {
+      return;
+    }
+
+    await handleAuth();
+  });
+}
+
+
+// Дополнительно обрабатываем отправку формы.
 if (authForm) {
   authForm.addEventListener("submit", async event => {
     event.preventDefault();
 
-    clearAuthMessages();
-
-    const email = emailInput?.value.trim();
-    const password = passwordInput?.value;
-
-    if (!email || !password) {
-      showAuthError("Введите email и пароль.");
+    if (authSubmit?.disabled) {
       return;
     }
 
-    if (!isLoginMode) {
-      const username = usernameInput?.value.trim();
-
-      if (!username) {
-        showAuthError("Введите имя пользователя.");
-        return;
-      }
-
-      if (username.length < 3) {
-        showAuthError("Имя пользователя должно содержать минимум 3 символа.");
-        return;
-      }
-
-      await register(username, email, password);
-
-    } else {
-      await login(email, password);
-    }
+    await handleAuth();
   });
 }
+
 
 
 async function register(username, email, password) {
