@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111827">
+
+    <title>LightTech Messenger</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ==================== AUTH ==================== -->
+
+    <section id="auth-screen" class="auth-screen">
+
+        <div class="auth-card">
+
+            <div class="logo">
+                <div class="logo-icon">LT</div>
+                <div>
+                    <h1>LightTech</h1>
+                    <p>Messenger</p>
+                </div>
+            </div>
+
+            <div class="auth-header">
+                <h2 id="auth-title">Вход</h2>
+                <p id="auth-subtitle">
+                    Войдите в свой аккаунт
+                </p>
+            </div>
+
+            <form id="auth-form">
+
+                <div id="username-field" class="input-group" hidden>
+                    <label for="username">Имя пользователя</label>
+
+                    <input
+                        id="username"
+                        type="text"
+                        placeholder="Например: alex"
+                        autocomplete="username"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        placeholder="Введите email"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Пароль</label>
+
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="Введите пароль"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button
+                    id="auth-submit"
+                    class="primary-button"
+                    type="submit"
+                >
+                    Войти
+                </button>
+
+            </form>
+
+            <div id="auth-error" class="message error"></div>
+            <div id="auth-success" class="message success"></div>
+
+            <button
+                id="toggle-auth"
+                class="secondary-button"
+                type="button"
+            >
+                Нет аккаунта? Зарегистрироваться
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================== APP ==================== -->
+
+    <section id="app-screen" class="app-screen" hidden>
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+
+                <div class="brand">
+                    <div class="logo-icon small">LT</div>
+
+                    <div>
+                        <strong>LightTech</strong>
+                        <span>Messenger</span>
+                    </div>
+                </div>
+
+                <button
+                    id="logout-button"
+                    class="icon-button"
+                    type="button"
+                    title="Выйти"
+                >
+                    ⎋
+                </button>
+
+            </div>
+
+
+            <div class="profile-mini">
+
+                <div class="avatar" id="profile-avatar">
+                    U
+                </div>
+
+                <div class="profile-info">
+                    <strong id="profile-name">
+                        Пользователь
+                    </strong>
+
+                    <span id="profile-status">
+                        онлайн
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <span>⌕</span>
+
+                <input
+                    id="user-search"
+                    type="search"
+                    placeholder="Поиск пользователей..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div id="search-results" class="search-results"></div>
+
+
+            <div class="chats-title">
+                Чаты
+            </div>
+
+            <div id="chat-list" class="chat-list">
+
+                <div class="empty-chats">
+                    <div>💬</div>
+                    <p>Пока нет чатов</p>
+                    <span>
+                        Найдите пользователя, чтобы начать общение
+                    </span>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CHAT -->
+
+        <main class="chat-area">
+
+            <div id="empty-chat" class="empty-chat">
+
+                <div class="empty-chat-icon">
+                    💬
+                </div>
+
+                <h2>LightTech Messenger</h2>
+
+                <p>
+                    Выберите чат или найдите пользователя,
+                    чтобы начать общение.
+                </p>
+
+            </div>
+
+
+            <div id="active-chat" class="active-chat" hidden>
+
+                <header class="chat-header">
+
+                    <div class="chat-user">
+
+                        <div
+                            class="avatar"
+                            id="chat-avatar"
+                        >
+                            U
+                        </div>
+
+                        <div>
+                            <strong id="chat-name">
+                                Пользователь
+                            </strong>
+
+                            <span id="chat-status">
+                                онлайн
+                            </span>
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <div
+                    id="messages"
+                    class="messages"
+                ></div>
+
+
+                <form
+                    id="message-form"
+                    class="message-form"
+                >
+
+                    <input
+                        id="message-input"
+                        type="text"
+                        placeholder="Напишите сообщение..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        id="send-button"
+                        type="submit"
+                        title="Отправить"
+                    >
+                        ➤
+                    </button>
+
+                </form>
+
+            </div>
+
+        </main>
+
+    </section>
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- APPLICATION -->
+
+    <script src="app.js"></script>
+
+</body>
+</html>
